@@ -6,34 +6,37 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>JS Presentation - Part 2</title>
         <link rel="stylesheet" href="./css/stylesheet.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
         <script src="./js/game.js" defer></script>
         <script src="./js/calculator.js" defer></script>
     </head>
     <body>
         <main>
             <section id="rock-paper-scissors-section" class="flex-to-mid"></section>
-            <section id="calculator-section" class="flex-to-mid">
-                <div>
-                    <span id="display" aria-placeholder="0"></span>
+            <section id="calculator-section">
+                <div id="calculator">
+                    <div id="display">0</div>
                     <div id="buttons" class="flex">
-                        <input id="clear" type="button" value="Clear" onclick=""/>
-                        <input class="operators" type="button" value="+" onclick=""/>
-                        <input class="operators" type="button" value="-" onclick=""/>
-                        <input class="operators" type="button" value="*" onclick=""/>
-                        <input class="operators" type="button" value="/" onclick=""/>
-                        <input id="equals" type="button" value="=" onclick=""/>
-                        <input class="numbers" type="button" value="0" onclick=""/>
-                        <input class="numbers" type="button" value="1" onclick=""/>
-                        <input class="numbers" type="button" value="2" onclick=""/>
-                        <input class="numbers" type="button" value="3" onclick=""/>
-                        <input class="numbers" type="button" value="4" onclick=""/>
-                        <input class="numbers" type="button" value="5" onclick=""/>
-                        <input class="numbers" type="button" value="6" onclick=""/>
-                        <input class="numbers" type="button" value="7" onclick=""/>
-                        <input class="numbers" type="button" value="8" onclick=""/>
-                        <input class="numbers" type="button" value="9" onclick=""/>
-                        <input id="backspace" type="button" value="Backspace" onclick=""/>
-                        <input id="decimal" type="button" value="." onclick=""/>
+                        <input id="clear" class="button" type="button" value="Clear" onclick=""/>
+                        <input class="operators button" type="button" value="+" onclick=""/>
+                        <input class="operators button" type="button" value="-" onclick=""/>
+                        <input class="operators button" type="button" value="*" onclick=""/>
+                        <input class="operators button" type="button" value="÷" onclick=""/>
+                        <input id="equals" class="button" type="button" value="=" onclick=""/>
+                        <input class="numbers button" type="button" value="0" onclick=""/>
+                        <input class="numbers button" type="button" value="1" onclick=""/>
+                        <input class="numbers button" type="button" value="2" onclick=""/>
+                        <input class="numbers button" type="button" value="3" onclick=""/>
+                        <input class="numbers button" type="button" value="4" onclick=""/>
+                        <input class="numbers button" type="button" value="5" onclick=""/>
+                        <input class="numbers button" type="button" value="6" onclick=""/>
+                        <input class="numbers button" type="button" value="7" onclick=""/>
+                        <input class="numbers button" type="button" value="8" onclick=""/>
+                        <input class="numbers button" type="button" value="9" onclick=""/>
+                        <input id="backspace" class="button" type="button" value="Backspace" onclick=""/>
+                        <input id="decimal" class="button" type="button" value="." onclick=""/>
                     </div>
                 </div>
             </section>
