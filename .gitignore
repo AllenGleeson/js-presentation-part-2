@@ -8,3 +8,4 @@
 settings.json
 ./vscode/*
 .gitattributes
+.vscode/launch.json
