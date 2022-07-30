@@ -15,9 +15,6 @@ function operate(operator, paramA, paramB ) {
     let result = 0;
     paramA = parseFloat(paramA);
     paramB = parseFloat(paramB);
-    console.log("operator", operator);
-    console.log("paramA", paramA);
-    console.log("paramB", paramB);
     switch(operator) {
         case '+' :
             result  = ((a, b) => {return a+b;})(paramA, paramB);
@@ -33,12 +30,10 @@ function operate(operator, paramA, paramB ) {
             break;
     }
     operationWasPerformed = true;
-    console.log("result", result);
     return result.toFixed(5);
 }
 
 function setOperator(op){
-    console.log("OP CHECK:",op);
     operator = op;
     firstNum = getDisplay();
     if(secondNum == false){
@@ -80,8 +75,6 @@ function readyCheck(){
         if(operationWasPerformed){
             document.getElementById("display").innerText="";
             secondNum = false;
-            // firstNum = false;
-            // operator = false;
             operationWasPerformed = false;
         }
 
@@ -92,7 +85,6 @@ function readyCheck(){
 [...document.getElementsByClassName('operators')].forEach(op => {
     op.addEventListener('click', function() {
         document.getElementById("error").innerText="";
-        console.log(op.value);
         if(firstNum && !operationWasPerformed){
             
             secondNum = getDisplay();
