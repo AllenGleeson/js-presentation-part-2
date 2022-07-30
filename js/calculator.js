@@ -1,5 +1,6 @@
 let firstNum = false;
 let secondNum = false;
+let operationWasPerformed = 0;
 let operator;
 
 function getDisplay(){
@@ -10,58 +11,60 @@ function printDisplay(num){
 	document.getElementById("display").innerText=num;
 }
 
-function operate(operator, firstNum, secondNum ) {
+function operate(operator, paramA, paramB ) {
     let result = 0;
+    paramA = parseFloat(paramA);
+    paramB = parseFloat(paramB);
+    console.log("operator", operator);
+    console.log("paramA", paramA);
+    console.log("paramB", paramB);
     switch(operator) {
         case '+' :
-            result  = ((a, b) => {return a+b;})(firstNum, secondNum);
-            console.log("first:"+firstNum);
-            console.log("second"+secondNum);
-            console.log("result"+result);
+            result  = ((a, b) => {return a+b;})(paramA, paramB);
             break;
         case '-' : 
-            result  = ((a, b) => {return a-b;})(firstNum, secondNum);
+            result  = ((a, b) => {return a-b;})(paramA, paramB);
             break;
         case '*' :
-            result  = ((a, b) => {return a*b;})(firstNum, secondNum);
+            result  = ((a, b) => {return a*b;})(paramA, paramB);
             break;
         case '÷' :
-            result  = ((a, b) => {return a/b;})(firstNum, secondNum);
+            result  = ((a, b) => {return a/b;})(paramA, paramB);
             break;
     }
-    console.log("firstNum:"+firstNum);
-    console.log("secondNum:"+secondNum);
-    console.log("result:"+result);
-    return result;
+    operationWasPerformed = true;
+    console.log("result", result);
+    return result.toFixed(5);
 }
 
 function setOperator(op){
+    console.log("OP CHECK:",op);
     operator = op;
     firstNum = getDisplay();
-    printDisplay(0);
+    if(secondNum == false){
+        printDisplay(0);
+    }
 }
 
 function enterNumber(number){
     if((number == 0) && (getDisplay() == 0)){
         return;
     }
-    else{
-        if(getDisplay() == 0){
-            printDisplay(number);
-        }
-        else{
-        printDisplay((getDisplay())+number);
-        }
+
+    if(getDisplay() == "0"){
+        printDisplay(number);
     }
-    console.log("enterNumber:"+number);
+    else{
+        printDisplay((getDisplay())+number);
+    }
 }
 
 function readyCheck(){
-    console.log("operator:"+operator+"firstNum:"+firstNum+"secondNum:"+secondNum);
     let check = false;
     if(operator && firstNum && secondNum){
         if((secondNum==0) && (operator == "÷")){
-            printDisplay("Sorry, you can't divide by zero.")
+            document.getElementById("clear").click();
+            document.getElementById("error").innerText="Sorry, you can't divide by zero.";
         }
         else{
             check = true;
@@ -72,40 +75,58 @@ function readyCheck(){
 
 [...document.getElementsByClassName('numbers')].forEach(number => {
     number.addEventListener('click', function() {
+        document.getElementById("error").innerText="";
+
+        if(operationWasPerformed){
+            document.getElementById("display").innerText="";
+            secondNum = false;
+            // firstNum = false;
+            // operator = false;
+            operationWasPerformed = false;
+        }
+
         enterNumber(number.value);
     })
   });
 
-[...document.getElementsByClassName('operators')].forEach(operator => {
-    operator.addEventListener('click', function() {
-        console.log(operator.value);
-        setOperator(operator.value);
+[...document.getElementsByClassName('operators')].forEach(op => {
+    op.addEventListener('click', function() {
+        document.getElementById("error").innerText="";
+        console.log(op.value);
+        if(firstNum && !operationWasPerformed){
+            
+            secondNum = getDisplay();
+            console.log("operator before ready check", operator);
+            if(readyCheck()){
+                let result = operate(operator, firstNum, secondNum);
+                printDisplay(result);
+                setOperator(op.value);
+            }
+            else{
+                alert("operator:"+operator+"firstNum:"+firstNum+"secondNum:"+secondNum);
+            }
+        }
+        else{
+            setOperator(op.value);
+        }
     })
 });
 
 document.getElementById("equals").addEventListener('click', function(){
-    if(firstNum){
-        secondNum = getDisplay();
-        if(readyCheck()){
-            let result = operate(operator, firstNum, secondNum);
-            printDisplay(result);
-            firstNum = result;
-        }
-        else{
-            alert("operator:"+operator+"firstNum:"+firstNum+"secondNum:"+secondNum);
-        }
+    document.getElementById("error").innerText="";
+    secondNum = getDisplay();
+    if(readyCheck()){
+        let result = operate(operator, firstNum, secondNum);
+        printDisplay(result);
+        firstNum = result;
     }
     else{
-        secondNum = getDisplay();
-        if(readyCheck()){
-            let result = operate(operator, firstNum, secondNum);
-            printDisplay(result);
-            firstNum = result;
-        }
+        alert("operator:"+operator+"firstNum:"+firstNum+"secondNum:"+secondNum);
     }
 });
 
 document.getElementById("clear").addEventListener('click', function(){
+    document.getElementById("error").innerText="";
     firstNum = false;
     secondNum = false;
     operator = false;
@@ -113,6 +134,7 @@ document.getElementById("clear").addEventListener('click', function(){
 });
 
 document.getElementById("decimal").addEventListener('click', function(){
+    document.getElementById("error").innerText="";
     if(getDisplay().includes(".")){
         return;
     }
@@ -121,4 +143,15 @@ document.getElementById("decimal").addEventListener('click', function(){
     }
 });
 
-console.log(operate("/", 2, 0));
+document.getElementById("backspace").addEventListener('click', function(){
+    document.getElementById("error").innerText="";
+    if(getDisplay() == 0){
+        return;
+    }
+    else if(getDisplay().length == 1){
+        printDisplay(0);
+    }
+    else{
+        printDisplay(getDisplay().slice(0, -1));
+    }
+});

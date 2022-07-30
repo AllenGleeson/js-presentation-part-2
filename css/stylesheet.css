@@ -5,8 +5,8 @@ body{
 #calculator{
     display:flex;
     flex-wrap: wrap;
-    flex: 0 1 50%;
-    min-width:400px;
+    width: 350px;
+    margin-top: 200px;
 }
 
 #calculator-section{
